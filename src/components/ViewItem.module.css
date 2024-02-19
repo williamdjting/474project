@@ -1,0 +1,22 @@
+.centerViewItem {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  color: blue;
+  background-color: lightblue;
+  padding-right: 100px;
+  padding-left: 100px;
+  padding-top: 100px;
+}
+
+
+.center1ViewItem {
+
+  flex-direction: column;
+  color: red;
+  padding-right: 100px;
+  padding-left: 100px;
+  background-color: grey;
+
+}
