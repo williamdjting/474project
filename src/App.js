@@ -12,7 +12,7 @@ function App() {
       <div>
       <Routes>
           <Route path="/" element={<CreateItem />} />
-          <Route path="/view" element={<CreateItem />} />
+          <Route path="/view" element={<ViewItem />} />
           <Route path="*" element={<NotFound />} /> {/* This route will be rendered if no other route matches */}
         </Routes>
       </div>

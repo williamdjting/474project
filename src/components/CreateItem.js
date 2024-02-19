@@ -1,5 +1,6 @@
 import CreateStyle from "./CreateItem.module.css"
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 
 function Create() {
   const [list, setList] = useState("");
@@ -16,6 +17,9 @@ function Create() {
 
   return (
     <>
+      <div>
+        We are on the create page
+      </div>
       <div className={CreateStyle.centerCreateItem}>
         <div className={CreateStyle.center1CreateItem}>
           <form onSubmit={handleFormSubmit}>
@@ -42,6 +46,11 @@ function Create() {
           </div>
         ))}
       </div>
+
+      <Link to="/view">
+        <button>Go to View Page</button>
+      </Link>
+      
 
     </>
   );

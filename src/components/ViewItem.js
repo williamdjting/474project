@@ -1,5 +1,6 @@
 import ViewStyle from "./ViewItem.module.css"
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 
 function View() {
   const [list, setList] = useState("");
@@ -16,6 +17,9 @@ function View() {
 
   return (
     <>
+      <div>
+        We are on the view page
+      </div>
       <div className={ViewStyle.centerViewItem}>
         <div className={ViewStyle.center1ViewItem}>
           <form onSubmit={handleFormSubmit}>
@@ -42,6 +46,12 @@ function View() {
           </div>
         ))}
       </div>
+
+
+      <Link to="/">
+        <button>Go to Create Page</button>
+      </Link>
+
 
     </>
   );
