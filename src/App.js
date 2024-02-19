@@ -3,11 +3,11 @@ import './App.css';
 import React, { useState } from "react";
 
 function App() {
-  const [list, setList] = useState<string>("");
+  const [list, setList] = useState("");
 
-  const [submittedValues, setSubmittedValues] = useState<string[]>([]);
+  const [submittedValues, setSubmittedValues] = useState([]);
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
 
 
@@ -19,8 +19,8 @@ function App() {
 
 
   return (
-    <main className={styles.center}>
-      <div className={styles.center1}>
+    <main className={App.center}>
+      <div className={App.center1}>
 
         <form onSubmit={handleFormSubmit}>
           {/* Input for text */}
@@ -40,9 +40,9 @@ function App() {
 
       {/* Display the list of submitted values */}
 
-      <div className={styles.center1}>
+      <div className={App.center1}>
         {submittedValues.map((value, index) => (
-           <div className={styles.center1}>
+           <div className={App.center1}>
           <li key={index}>{value}</li>
           </div>
         ))}
