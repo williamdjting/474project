@@ -1,19 +1,31 @@
 import CreateStyle from "./CreateItem.module.css"
-import React, { useState } from "react";
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import ArrayContext from "../ArrayContext";
 
 function Create() {
+
+  const { listArray, setListArray } = useContext(ArrayContext);
+
   const [list, setList] = useState("");
 
-  const [submittedValues, setSubmittedValues] = useState([]);
+  // const [submittedValues, setSubmittedValues] = useState([]);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
     console.log("Input Text:", list);
     // Add the value of "e" to the list of submitted values
-    setSubmittedValues([...submittedValues, list]);
+    // setSubmittedValues([...submittedValues, list]);
+        // Add a new item to the array
+    setListArray(prevArray => [...prevArray, list]);
+        // Clear the input field
+    setList("");
   };
+
+
+  
+
 
   return (
     <>
@@ -40,7 +52,7 @@ function Create() {
       </div>
 
       <div className={CreateStyle.centerCreateItem}>
-        {submittedValues.map((value, index) => (
+        {listArray.map((value, index) => (
           <div className={CreateStyle.center1CreateItem}>
             <li key={index}>{value}</li>
           </div>
