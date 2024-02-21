@@ -1,8 +1,13 @@
 import ViewStyle from "./ViewItem.module.css"
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from 'react-router-dom';
 
+import ArrayContext from "../ArrayContext";
+
 function View() {
+
+  const { listArray } = useContext(ArrayContext);
+
   const [list, setList] = useState("");
 
   const [submittedValues, setSubmittedValues] = useState([]);
@@ -22,8 +27,19 @@ function View() {
       </div>
       <div className={ViewStyle.centerViewItem}>
         <div className={ViewStyle.center1ViewItem}>
+          <ul>
+        {listArray.map((value, index) => (
+          <li key={index}>{value}</li>
+        ))}
+      </ul>
+        </div>
+      </div>
+
+      
+      {/* <div className={ViewStyle.centerViewItem}>
+        <div className={ViewStyle.center1ViewItem}>
           <form onSubmit={handleFormSubmit}>
-            {/* Input for text */}
+            
             <label>
               Text:
               <input
@@ -33,19 +49,19 @@ function View() {
               />
             </label>
             <br />
-            {/* Input for submit */}
+
             <input type="submit" value="Click me" />
           </form>
         </div>
-      </div>
+      </div> */}
 
-      <div className={ViewStyle.centerViewItem}>
+      {/* <div className={ViewStyle.centerViewItem}>
         {submittedValues.map((value, index) => (
           <div className={ViewStyle.center1ViewItem}>
             <li key={index}>{value}</li>
           </div>
         ))}
-      </div>
+      </div> */}
 
 
       <Link to="/">
