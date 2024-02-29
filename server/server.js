@@ -46,7 +46,7 @@ app.post("/question", async(req, res)=>{
   }
 });
 
-//get all questions under a specific category
+//get all questions from a specific category
 app.get("/question/:category", async(req, res)=>{
   try {
       const {category} = req.params;
@@ -56,6 +56,18 @@ app.get("/question/:category", async(req, res)=>{
       console.error(err.message);
   }
 });
+
+//get k questions from a specific category
+app.get("/question/:category/:amount", async(req, res)=>{
+  try {
+      const {category,amount} = req.params;
+      const questions = await pool.query("SELECT * FROM flashcard WHERE category_name = $1 ORDER BY random() LIMIT $2", [category, amount]);
+      res.json(questions.rows);
+  } catch (err) {
+      console.error(err.message);
+  }
+});
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
