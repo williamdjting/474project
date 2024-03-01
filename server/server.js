@@ -11,6 +11,20 @@ app.use(express.json());
 const PORT = process.env.PORT || 5000; // Use the port specified in environment variables or default to 5000
 
 // Additional API routes or other server logic can be added here
+async function ensureDefaultUser() {
+  try {
+    const result = await pool.query("SELECT * FROM users WHERE username = $1", ['default']);
+    if (result.rows.length === 0) {
+      // If no user with username 'default' exists, insert it
+      await pool.query("INSERT INTO users (username, password_text) VALUES ($1, $2)", ['default', 'your_default_password']);
+      console.log('Default user added successfully.');
+    }
+  } catch (err) {
+    console.error('Error checking/adding default user:', err.message);
+  }
+};
+
+ensureDefaultUser();
 
 //Create a category
 app.post("/category", async(req, res)=>{
@@ -36,6 +50,7 @@ app.get("/category", async(req, res)=>{
 //create a question
 app.post("/question", async(req, res)=>{
   try {
+      console.log(req.body);
       const {category_name, owner_name, question, option1, option2, answer} = req.body;
       const newQuestion = await pool.query(
       `INSERT INTO flashcard (category_name, owner_name, question, option1, option2, answer) 

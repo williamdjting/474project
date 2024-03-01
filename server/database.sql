@@ -15,7 +15,7 @@ CREATE TABLE flashcard(
     option1 VARCHAR(32) NOT NULL,
     option2 VARCHAR(32) NOT NULL,
     answer VARCHAR(32) NOT NULL,
-    category_name VARCHAR(32),
+    category_name VARCHAR(32) NOT NULL,
     owner_name VARCHAR(32) NOT NULL,
     CONSTRAINT fk_category
         FOREIGN KEY(category_name) 
