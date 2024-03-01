@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import FlashcardList from './components/FlashcardList';
-import './App.css'
-import axios from 'axios'
+import './App.css';
+import AddQuestionPage from './components/AddQuestionPage';
+import axios from 'axios';
 
 function App() {
   const [flashcards, setFlashcards] = useState([])
   const [categories, setCategories] = useState([])
+  const [showPopup, setShowPopup] = useState(false);
 
   const categoryEl = useRef()
   const amountEl = useRef()
@@ -16,10 +18,6 @@ function App() {
       .then(res => {
         setCategories(res.data)
       })
-  }, [])
-
-  useEffect(() => {
-   
   }, [])
 
   function decodeString(str) {
@@ -46,6 +44,14 @@ function App() {
     })
   }
 
+  function handleNewQuestion() {
+    setShowPopup(true);
+  }
+
+  function closePopup() {
+    setShowPopup(false);
+  }
+
   return (
     <>
       <form className="header" onSubmit={handleSubmit}>
@@ -65,9 +71,17 @@ function App() {
           <button className="btn">Generate</button>
         </div>
       </form>
+
+      <div className="form-group">
+        <button className="btn" onClick={handleNewQuestion}>Create New Question</button>
+      </div>
+
       <div className="container">
         <FlashcardList flashcards={flashcards} />
       </div>
+
+      {showPopup && <AddQuestionPage closePopup={closePopup} />}
+
     </>
   );
 }
