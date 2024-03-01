@@ -80,7 +80,7 @@ function App() {
         <FlashcardList flashcards={flashcards} />
       </div>
 
-      {showPopup && <AddQuestionPage closePopup={closePopup} />}
+      {showPopup && <AddQuestionPage closePopup={closePopup} categories={categories}/>}
 
     </>
   );
