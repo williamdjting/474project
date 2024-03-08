@@ -4,6 +4,7 @@ const express = require('express');
 const path = require('path');
 const cors = require("cors");
 const pool = require("./db")
+const bcrypt = require('bcryptjs');
 
 const app = express();
 app.use(cors());
@@ -80,6 +81,34 @@ app.get("/question/:category/:amount", async(req, res)=>{
       res.json(questions.rows);
   } catch (err) {
       console.error(err.message);
+  }
+});
+
+// user login
+app.post('/login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const userQuery = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
+
+    if (userQuery.rows.length > 0) {
+      const user = userQuery.rows[0];
+      // Assuming 'password_text' in your database is the hashed password column
+      const isValidPassword = await bcrypt.compare(password, user.password_text);
+
+      if (isValidPassword) {
+        // Login success
+        res.json({ message: 'Login successful' });
+      } else {
+        // Password does not match
+        res.status(401).json({ message: 'Invalid username or password' });
+      }
+    } else {
+      // No user found
+      res.status(401).json({ message: 'Invalid username or password' });
+    }
+  } catch (err) {
+    console.error('Login error:', err.message);
+    res.status(500).json({ message: 'An error occurred during the login process' });
   }
 });
 
