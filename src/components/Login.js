@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-const Login = () => {
+// Added onLoginSuccess to the component's props
+const Login = ({ onLoginSuccess }) => {
   const [loginData, setLoginData] = useState({
     username: '',
     password: '',
@@ -13,30 +14,38 @@ const Login = () => {
     setLoading(true);
     setError('');
 
-    // Login API endpoint
-    const response = await fetch('http://localhost:5000/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(loginData),
-    });
+    try {
+      const response = await fetch('http://localhost:5000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginData),
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    setLoading(false);
-
-    if (response.ok) {
-      console.log('Login successful', data);
-      // Proceed with login success flow
-    } else {
-      setError(data.message || 'An error occurred during login.');
+      if (response.ok) {
+        console.log('Login successful', data);
+        setLoading(false);
+        // Call the onLoginSuccess callback provided via props
+        if (onLoginSuccess) {
+          onLoginSuccess();
+        }
+      } else {
+        setError(data.message || 'An error occurred during login.');
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setError('Network error or server is not responding.');
+      setLoading(false);
     }
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setLoginData(prevState => ({
+    setLoginData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -44,12 +53,10 @@ const Login = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     if (!loginData.username || !loginData.password) {
       setError('Please fill in all fields');
       return;
     }
-
     login();
   };
 

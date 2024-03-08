@@ -2,12 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import FlashcardList from './FlashcardList';
 import './Home.css';
 import AddQuestionPage from './AddQuestionPage';
+import Login from './Login'; // Import the Login component
 import axios from 'axios';
 
 function Home() {
   const [flashcards, setFlashcards] = useState([])
   const [categories, setCategories] = useState([])
   const [showPopup, setShowPopup] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
 
   const categoryEl = useRef()
   const amountEl = useRef()
@@ -52,6 +54,19 @@ function Home() {
     setShowPopup(false);
   }
 
+  // Function to simulate login, set isLoggedIn to true
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  // Correct usage of Login component instead of LoginPage
+  if (!isLoggedIn) {
+    // Pass the handleLogin function as a prop to Login
+    return <Login onLoginSuccess={handleLogin} />;
+  }
+
+
+  // If logged in, show the main content
   return (
     <>
       <form className="header" onSubmit={handleSubmit}>
