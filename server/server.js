@@ -84,6 +84,44 @@ app.get("/question/:category/:amount", async(req, res)=>{
   }
 });
 
+// // user sign up
+// app.post('/signup', async (req, res) => {
+//   const { username, password } = req.body;
+  
+//   try {
+//     const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
+//     // Insert the new user into the database. 
+//     const newUser = await pool.query("INSERT INTO users (username, password_text) VALUES ($1, $2) RETURNING *", [username, hashedPassword]);
+
+//     res.status(201).json({ message: 'User created successfully', user: newUser.rows[0] });
+//   } catch (error) {
+//     if (error.code === '23505') { // PostgreSQL error code for unique violation
+//       res.status(409).json({ message: 'Username already exists' });
+//     } else {
+//       console.error('Signup error:', error);
+//       res.status(500).json({ message: 'Failed to create user' });
+//     }
+//   }
+// });
+
+app.post('/signup', async (req, res) => {
+  const { username, password } = req.body;
+  
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = await pool.query(
+      "INSERT INTO users (username, password_text) VALUES ($1, $2) RETURNING *", 
+      [username, hashedPassword]
+    );
+
+    res.status(201).json({ message: 'User created successfully', user: newUser.rows[0] });
+  } catch (error) {
+    console.error('Signup error:', error);
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
 // user login
 app.post('/login', async (req, res) => {
   try {
