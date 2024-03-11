@@ -1,8 +1,8 @@
 CREATE DATABASE flashcard_db;
 
 CREATE TABLE users(
-    username VARCHAR(32) PRIMARY KEY,
-    password_text VARCHAR(32) NOT NULL
+    username VARCHAR(255) PRIMARY KEY,
+    password_text VARCHAR(255) NOT NULL  -- Adjusted for hashed passwords
 );
 
 CREATE TABLE category(

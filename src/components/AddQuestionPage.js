@@ -6,9 +6,9 @@ import AddCategoryPage from './AddCategoryPage';
 function AddQuestionPage ({closePopup, categories}) {
     
     const [formData, setFormData] = useState({
-        question: '',
-        owner_name: 'default',
-        category_name: '',
+        questionName: '',
+        owner: 'default',
+        categoryName: 'arts',
         option1: '',
         option2: '',
         answer: '',
@@ -26,7 +26,7 @@ function AddQuestionPage ({closePopup, categories}) {
     const handleSelectChange = (e) => {
         setFormData({
             ...formData,
-            category_name: e.target.value,
+            categoryName: e.target.value,
         });
     };
 
@@ -36,15 +36,15 @@ function AddQuestionPage ({closePopup, categories}) {
             if (categories.length === 1) {
                 setFormData({
                   ...formData,
-                  category_name: categories[0].category_name,
+                  categoryName: categories[0].categoryName,
                 });
             }
-            const response = await axios.post('http://localhost:5000/question', formData);
+            const response = await axios.post('https://ls43udyak5.execute-api.us-east-2.amazonaws.com/question', formData);
             console.log(response.data);
             setFormData({
-                question: '',
-                owner_name: 'Tianyu',
-                category_name: '',
+                questionName: '',
+                owner: 'Tianyu',
+                categoryName: 'arts',
                 option1: '',
                 option2: '',
                 answer: '',
@@ -73,8 +73,8 @@ function AddQuestionPage ({closePopup, categories}) {
                     <label htmlFor="fquestion">Question: </label>
                     <input type="text" 
                         id="fquestion" 
-                        name="question" 
-                        value={formData.question}
+                        name="questionName" 
+                        value={formData.questionName}
                         onChange={handleInputChange}
                         placeholder="Please type the question here (at most 256 characters)">
                     </input>
@@ -82,11 +82,11 @@ function AddQuestionPage ({closePopup, categories}) {
                     <label htmlFor="fcategories">Choose a category:</label>
                     <select name="category_name" 
                         id="fcategories" 
-                        value={formData.category_name}
+                        value={formData.categoryName}
                         onChange={handleSelectChange}
                         onClick={handleSelectChange}>
                         {categories.map((category, index)=>(
-                            <option key={index} value={category.category_name}>{category.category_name}</option>
+                            <option key={index} value={category.categoryName}>{category.categoryName}</option>
                         ))}
                     </select>
                     <button type="button" className="create-category" onClick={handleAddCategory}>Add New Category</button>

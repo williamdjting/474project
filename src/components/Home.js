@@ -2,19 +2,21 @@ import React, { useState, useEffect, useRef } from 'react';
 import FlashcardList from './FlashcardList';
 import './Home.css';
 import AddQuestionPage from './AddQuestionPage';
+import Login from './Login'; // Import the Login component
 import axios from 'axios';
 
 function Home() {
   const [flashcards, setFlashcards] = useState([])
   const [categories, setCategories] = useState([])
   const [showPopup, setShowPopup] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track login status
 
   const categoryEl = useRef()
   const amountEl = useRef()
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/category')
+      .get('https://ls43udyak5.execute-api.us-east-2.amazonaws.com/categories')
       .then(res => {
         setCategories(res.data)
       })
@@ -29,14 +31,14 @@ function Home() {
   function handleSubmit(e) {
     e.preventDefault()
     axios
-    .get('http://localhost:5000/question/' + categoryEl.current.value + '/' + amountEl.current.value)
+    .get('https://ls43udyak5.execute-api.us-east-2.amazonaws.com/question/' + categoryEl.current.value + '/' + amountEl.current.value)
     .then(res => {
       setFlashcards(res.data.map((questionItem, index) => {
         const answer = decodeString(questionItem.answer)
         const options = [questionItem.option1, questionItem.option2, answer]
         return {
           id: `${index}-${Date.now()}`,
-          question: decodeString(questionItem.question),
+          question: decodeString(questionItem.questionName),
           answer: answer,
           options: options.sort(() => Math.random() - .5)
         }
@@ -52,6 +54,19 @@ function Home() {
     setShowPopup(false);
   }
 
+  // Function to simulate login, set isLoggedIn to true
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  // Correct usage of Login component instead of LoginPage
+  if (!isLoggedIn) {
+    // Pass the handleLogin function as a prop to Login
+    return <Login onLoginSuccess={handleLogin} />;
+  }
+
+
+  // If logged in, show the main content
   return (
     <>
       <form className="header" onSubmit={handleSubmit}>
@@ -59,7 +74,7 @@ function Home() {
           <label htmlFor="category">Category</label>
           <select id="category" ref={categoryEl}>
             {categories.map(category => {
-              return <option value={category.id} key={category.id}>{category.category_name}</option>
+              return <option value={category.id} key={category.id}>{category.categoryName}</option>
             })}
           </select>
         </div>
