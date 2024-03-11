@@ -44,7 +44,7 @@ function AddQuestionPage ({closePopup, categories}) {
             setFormData({
                 questionName: '',
                 owner: 'Tianyu',
-                categoryName: '',
+                categoryName: 'arts',
                 option1: '',
                 option2: '',
                 answer: '',
