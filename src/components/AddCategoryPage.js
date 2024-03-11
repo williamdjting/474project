@@ -4,7 +4,7 @@ import axios from 'axios';
 function AddCategoryPage ({closeAddCategoryPage}) {
     
     const [formData, setFormData] = useState({
-        category_name: '',
+        categoryName: '',
     });
 
     const handleInputChange = (e) => {
@@ -20,7 +20,7 @@ function AddCategoryPage ({closeAddCategoryPage}) {
             const response = await axios.post('https://ls43udyak5.execute-api.us-east-2.amazonaws.com/categories', formData);
             console.log(response.data);
             setFormData({
-                category_name: ''
+                categoryName: ''
             });
             closeAddCategoryPage();
         } catch (error) {
@@ -35,8 +35,8 @@ function AddCategoryPage ({closeAddCategoryPage}) {
                     <label htmlFor="fcategoryname">New Category Name: </label>
                     <input type="text" 
                         id="fcategoryname" 
-                        name="category_name" 
-                        value={formData.category_name}
+                        name="categoryName" 
+                        value={formData.categoryName}
                         onChange={handleInputChange}
                         placeholder="new category name">
                     </input>

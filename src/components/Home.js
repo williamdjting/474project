@@ -31,14 +31,14 @@ function Home() {
   function handleSubmit(e) {
     e.preventDefault()
     axios
-    .get('https://ls43udyak5.execute-api.us-east-2.amazonaws.com/question' + categoryEl.current.value + '/' + amountEl.current.value)
+    .get('https://ls43udyak5.execute-api.us-east-2.amazonaws.com/question/' + categoryEl.current.value + '/' + amountEl.current.value)
     .then(res => {
       setFlashcards(res.data.map((questionItem, index) => {
         const answer = decodeString(questionItem.answer)
         const options = [questionItem.option1, questionItem.option2, answer]
         return {
           id: `${index}-${Date.now()}`,
-          question: decodeString(questionItem.question),
+          question: decodeString(questionItem.questionName),
           answer: answer,
           options: options.sort(() => Math.random() - .5)
         }
@@ -74,7 +74,7 @@ function Home() {
           <label htmlFor="category">Category</label>
           <select id="category" ref={categoryEl}>
             {categories.map(category => {
-              return <option value={category.id} key={category.id}>{category.category_name}</option>
+              return <option value={category.id} key={category.id}>{category.categoryName}</option>
             })}
           </select>
         </div>
