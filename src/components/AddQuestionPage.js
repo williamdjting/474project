@@ -8,7 +8,7 @@ function AddQuestionPage ({closePopup, categories}) {
     const [formData, setFormData] = useState({
         questionName: '',
         owner: 'default',
-        categoryName: '',
+        categoryName: 'arts',
         option1: '',
         option2: '',
         answer: '',
@@ -44,7 +44,7 @@ function AddQuestionPage ({closePopup, categories}) {
             setFormData({
                 questionName: '',
                 owner: 'William',
-                categoryName: '',
+                categoryName: 'arts',
                 option1: '',
                 option2: '',
                 answer: '',
