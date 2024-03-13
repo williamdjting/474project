@@ -8,7 +8,7 @@ function AddQuestionPage ({closePopup, categories}) {
     const [formData, setFormData] = useState({
         questionName: '',
         owner: 'default',
-        categoryName: 'arts',
+        categoryName: '',
         option1: '',
         option2: '',
         answer: '',
@@ -39,12 +39,12 @@ function AddQuestionPage ({closePopup, categories}) {
                   categoryName: categories[0].categoryName,
                 });
             }
-            const response = await axios.post('https://ls43udyak5.execute-api.us-east-2.amazonaws.com/question', formData);
+            const response = await axios.post('https://edf43u69z9.execute-api.us-east-2.amazonaws.com/question', formData);
             console.log(response.data);
             setFormData({
                 questionName: '',
-                owner: 'Tianyu',
-                categoryName: 'arts',
+                owner: 'William',
+                categoryName: '',
                 option1: '',
                 option2: '',
                 answer: '',

@@ -14,7 +14,7 @@ const Login = ({ onLoginSuccess }) => {
     setLoading(true);
     setError('');
 
-    const endpoint = isSignUp ? 'https://ls43udyak5.execute-api.us-east-2.amazonaws.com/signup' : 'https://ls43udyak5.execute-api.us-east-2.amazonaws.com/login';
+    const endpoint = isSignUp ? 'https://edf43u69z9.execute-api.us-east-2.amazonaws.com/signup' : 'https://edf43u69z9.execute-api.us-east-2.amazonaws.com/login';
     const method = isSignUp ? 'Sign Up' : 'Login';
 
     try {
