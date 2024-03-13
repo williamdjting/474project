@@ -16,7 +16,7 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get('https://ls43udyak5.execute-api.us-east-2.amazonaws.com/categories')
+      .get('https://qlmevm1ygc.execute-api.us-east-2.amazonaws.com/categories')
       .then(res => {
         setCategories(res.data)
       })
@@ -31,7 +31,7 @@ function Home() {
   function handleSubmit(e) {
     e.preventDefault()
     axios
-    .get('https://ls43udyak5.execute-api.us-east-2.amazonaws.com/question/' + categoryEl.current.value + '/' + amountEl.current.value)
+    .get('https://qlmevm1ygc.execute-api.us-east-2.amazonaws.com/question/' + categoryEl.current.value + '/' + amountEl.current.value)
     .then(res => {
       setFlashcards(res.data.map((questionItem, index) => {
         const answer = decodeString(questionItem.answer)
